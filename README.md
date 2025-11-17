@@ -1,4 +1,4 @@
-Please run the file index.html to run the program.
+Please download all files. Then put your OpenAI API key into the config.js file. Then run the file index.html to run the program.
 
 Pathway Studio - AI Career Pathway Planner
 Pathway Studio is a browser based prototype that uses AI to help high school students explore 4 year university pathways at UH Mānoa. Students fill out a short profile, then the app asks OpenAI to generate:
