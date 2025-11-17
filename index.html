@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pathway Studio - Student Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --fg: #000000;
+      --muted: #6e6e73;
+      --card: #ffffff;
+      --border: #d2d2d7;
+      --accent: #0071e3;
+      --radius-card: 22px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+      background: radial-gradient(circle at top, #e8f0ff 0, #f5f5f7 55%, #e3e3ea 100%);
+      color: var(--fg);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 16px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo-shell {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(210, 210, 215, 0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .logo-mark {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #0071e3, #34c759);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .logo-text {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 980px;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    @media (max-width: 880px) {
+      .shell {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+      }
+    }
+
+    .hero {
+      padding: 20px 0;
+    }
+
+    .hero-eyebrow {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      margin: 0 0 10px;
+      font-size: clamp(30px, 4vw, 42px);
+      letter-spacing: -0.03em;
+      font-weight: 700;
+    }
+
+    .hero-lead {
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--muted);
+      max-width: 30rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .hero-tag {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(210, 210, 215, 0.9);
+      background: rgba(255, 255, 255, 0.75);
+      font-size: 12px;
+      color: #4b4b50;
+    }
+
+    .hero-note {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: var(--radius-card);
+      padding: 22px 22px 24px;
+      border: 1px solid rgba(210, 210, 215, 0.9);
+      box-shadow: 0 22px 46px rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(18px);
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1d1d1f;
+    }
+
+    select {
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      font-size: 14px;
+      font-family: inherit;
+      background: #f5f5f7;
+      outline: none;
+      transition: border-color 0.14s ease, background 0.14s ease, box-shadow 0.14s ease;
+    }
+
+    select[multiple] {
+      min-height: 120px;
+    }
+
+    select:focus {
+      border-color: var(--accent);
+      background: #ffffff;
+      box-shadow: 0 0 0 1px rgba(0, 113, 227, 0.5);
+    }
+
+    .helper {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .actions {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .btn-primary {
+      border-radius: var(--radius-pill);
+      padding: 11px 22px;
+      border: none;
+      background: #000000;
+      color: #f5f5f7;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: #111111;
+      box-shadow: 0 22px 52px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-primary span.icon {
+      font-size: 18px;
+    }
+
+    .fine-print {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 10px 24px 18px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo-shell">
+    <div class="logo-mark"></div>
+    <div class="logo-text">Pathway Studio</div>
+  </div>
+</header>
+
+<main>
+  <div class="shell">
+    <section class="hero">
+      <div class="hero-eyebrow">Education to career</div>
+      <h1 class="hero-title">Connect student profiles with pathways at UH Mānoa.</h1>
+      <p class="hero-lead">
+        A light planning tool that turns a short profile into university course, activity, and career bubbles connected in one view.
+      </p>
+      <div class="hero-tags">
+        <span class="hero-tag">High school grades 9 to 12</span>
+        <span class="hero-tag">University of Hawaii at Mānoa catalog</span>
+        <span class="hero-tag">Occupational Outlook Handbook careers</span>
+      </div>
+      <p class="hero-note">
+        Start by describing the student. The next screen shows an AI generated pathway board.
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="card-title">Student profile</div>
+      <div class="card-subtitle">Selections here shape the suggestions on the next page.</div>
+
+      <form id="profile-form">
+        <div class="field">
+          <label for="grade">Grade in high school</label>
+          <select id="grade" required>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11" selected>11</option>
+            <option value="12">12</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="interest">Main interest areas</label>
+          <select id="interest" multiple required>
+            <option value="stem">STEM and computing</option>
+            <option value="life">Life science and health</option>
+            <option value="business">Business and economics</option>
+            <option value="social">Social science and education</option>
+            <option value="arts">Arts and media</option>
+          </select>
+          <div class="helper">
+            You can select more than one. On desktop, hold Ctrl (Windows) or Command (Mac) to select multiple.
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="dreamCareer">Dream career</label>
+          <select id="dreamCareer" required>
+            <option value="software developers">Software developers</option>
+            <option value="computer and information research scientists">Computer and information research scientists</option>
+            <option value="information security analysts">Information security analysts</option>
+            <option value="civil engineers">Civil engineers</option>
+            <option value="mechanical engineers">Mechanical engineers</option>
+            <option value="registered nurses">Registered nurses</option>
+            <option value="physicians and surgeons">Physicians and surgeons</option>
+            <option value="clinical laboratory technologists and technicians">Clinical laboratory technologists and technicians</option>
+            <option value="accountants and auditors">Accountants and auditors</option>
+            <option value="financial analysts">Financial analysts</option>
+            <option value="market research analysts and marketing specialists">Market research analysts and marketing specialists</option>
+            <option value="kindergarten and elementary school teachers">Kindergarten and elementary school teachers</option>
+            <option value="high school teachers">High school teachers</option>
+            <option value="social workers">Social workers</option>
+            <option value="psychologists">Psychologists</option>
+            <option value="graphic designers">Graphic designers</option>
+            <option value="art directors">Art directors</option>
+            <option value="producers and directors">Producers and directors</option>
+          </select>
+          <div class="helper">Titles are aligned with the Occupational Outlook Handbook.</div>
+        </div>
+
+        <div class="field">
+          <label for="strength">Main strengths</label>
+          <select id="strength" multiple required>
+            <option value="strong math skills">Strong math skills</option>
+            <option value="strong writing and communication">Strong writing and communication</option>
+            <option value="enjoys helping people">Enjoys helping people</option>
+            <option value="enjoys technology">Enjoys technology</option>
+            <option value="creativity and design">Creativity and design</option>
+            <option value="leadership">Leadership</option>
+            <option value="detail oriented">Detail oriented</option>
+            <option value="enjoys research">Enjoys research</option>
+            <option value="enjoys hands on work">Enjoys hands on work</option>
+          </select>
+          <div class="helper">
+            Select all that feel true for this student.
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="goal">Long term goals</label>
+          <select id="goal" multiple required>
+            <option value="high income">High income</option>
+            <option value="work life balance">Work life balance</option>
+            <option value="helping community">Helping community</option>
+            <option value="research and innovation">Research and innovation</option>
+            <option value="creative freedom">Creative freedom</option>
+            <option value="working with people">Working with people</option>
+            <option value="working with technology">Working with technology</option>
+          </select>
+          <div class="helper">
+            You can choose several long term goals.
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary">
+            <span>Build pathway board</span>
+            <span class="icon">›</span>
+          </button>
+          <div class="fine-print">
+            Profile data stays in the browser and is used only for suggestions.
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+</main>
+
+<footer>
+  Prototype planner referencing the University of Hawaii at Mānoa course catalog and the Occupational Outlook Handbook.
+</footer>
+
+<script>
+  function getMultiValues(selectEl) {
+    return Array.from(selectEl.selectedOptions).map(opt => opt.value);
+  }
+
+  document.getElementById("profile-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const grade = document.getElementById("grade").value;
+    const interestEl = document.getElementById("interest");
+    const strengthEl = document.getElementById("strength");
+    const goalEl = document.getElementById("goal");
+    const dreamCareer = document.getElementById("dreamCareer").value;
+
+    const interests = getMultiValues(interestEl);
+    const strengths = getMultiValues(strengthEl);
+    const goals = getMultiValues(goalEl);
+
+    if (!interests.length || !strengths.length || !goals.length) {
+      alert("Please select at least one interest, strength, and long term goal.");
+      return;
+    }
+
+    const profile = {
+      grade,
+      interests,
+      dreamCareer,
+      strengths,
+      goals
+    };
+
+    sessionStorage.setItem("studentProfile", JSON.stringify(profile));
+    window.location.href = "pathways.html";
+  });
+</script>
+</body>
+</html>
